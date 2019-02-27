@@ -1,0 +1,22 @@
+{
+  "name": "practica7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITESMWEBAPPSCEM/practica7.git"
+  },
+  "author": "Arturo Amador",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ITESMWEBAPPSCEM/practica7/issues"
+  },
+  "homepage": "https://github.com/ITESMWEBAPPSCEM/practica7#readme",
+  "dependencies": {
+    "sqlite3": "^4.0.6"
+  }
+}
