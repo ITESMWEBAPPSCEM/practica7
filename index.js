@@ -8,8 +8,14 @@ const db = new sqlite3.Database('practica7.db');
 
 app.use("/public", express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: false}));
-app.set('view engine', 'ejs');
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 app.use(express.json());
+app.set('view engine', 'ejs');
+
 
 
 function insertarAlumnos(nombre, matricula, carrera, fechaNacimiento, pasaTiempo, calificacionEsperada) {
@@ -18,61 +24,40 @@ function insertarAlumnos(nombre, matricula, carrera, fechaNacimiento, pasaTiempo
         stmt.run(nombre, matricula, carrera, fechaNacimiento, pasaTiempo, calificacionEsperada);
         stmt.finalize();
     });
-    db.close();
 }
 
-function consultarAlumnos() {
-    var data = {}
-    db.each("SELECT * FROM Main", (err, row) => {
-        data = {
-                "nombre":row.Nombre,
-                "matricula":row.Matricula,
-                "carrera":row.Carrera,
-                "fechaNacimiento":row.FechaNacimiento,
-                "pasaTiempo":row.Pasatiempo,
-                "calificacion":row.CalificacionEsperada
-            }
-
-        if (err) {
-            console.error(err)
-            return null
-        }else{
-            console.log(data);
-            return data
-        }
-
-    });
-
-    setTimeout(() => {
-        return data;
-    }, 1500);
-}
 
 app.get('/alumnos', (req, res) => {
 
     var data = {}
-    db.each("SELECT * FROM Main", (err, row) => {
-        data = {
+    var array = []
+    db.all("SELECT * FROM Main ORDER BY FechaNacimiento DESC", [],(err, row) => {
+        
+        if (err) {
+            console.error(err)
+            res.status(501).send({status:true, data:array});
+            return;
+        }
+
+        
+        row.forEach(row=>{
+            array.push({
                 "nombre":row.Nombre,
                 "matricula":row.Matricula,
                 "carrera":row.Carrera,
                 "fechaNacimiento":row.FechaNacimiento,
                 "pasaTiempo":row.Pasatiempo,
                 "calificacion":row.CalificacionEsperada
-            }
-        if (err) {
-            console.error(err)
-            res.status(501).send({status:true, data:data});
-            return;
-        }
+            })
+        })
 
     });
     setTimeout(() => {
         console.log(data);
-        res.send({status:true, data:data});
+        res.send({status:true, data:array});
         return;
         
-    }, 5000);
+    }, 2500);
     
 });
 
@@ -95,11 +80,7 @@ app.post('/registroAlumno',(req,res)=>{
     
 })
 
-
-
-
 //insertarAlumnos("Arturo Amador",01374416,"ISC",28,"Dormir","100");
-console.log(consultarAlumnos());
 
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Escuchando en puerto ${port}...`));

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</head>
+<body>
+    <br/>  
+    <center>
+        <h3>Registro de alumnos</h3>
+    </center>
+    <br/>
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <form class="form_registro">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Nombre" required/>
+        </div>
+        <div class="form-group">
+            <label for="matricula">Matricula</label>
+            <input type="number" class="form-control" id="matricula" placeholder="A00000000" required/>
+        </div>
+        <div class="form-group">
+            <label for="major">Carrera</label>
+            <input type="text" class="form-control" id="major" placeholder="Carrera" required/>
+        </div>
+        <div class="form-group">
+            <label for="born">Fecha Nacimiento</label>
+            <input type="date" class="form-control" id="born" required/>
+        </div>
+        <div class="form-group">
+            <label for="hobby">Pasa Tiempo</label>
+            <input type="text" class="form-control" id="hobby" placeholder="Pasatiempo" required/>
+        </div>
+        <div class="form-group">
+            <label for="grade">Calificación Esperada</label>
+            <input type="number" class="form-control" id="grade" placeholder="100" required/>
+        </div>
+
+        <center>
+            <button type="submit" class="btn btn-primary" onclick="javascript:register(this, event)">Registrar</button>
+        </center>
+    </form>
+    <br/>
+    
+</body>
+</html>
